@@ -1,0 +1,55 @@
+{
+  "name": "xcui-demo-loader",
+  "version": "0.1.3",
+  "description": "Demo loader for xcui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue-loader",
+    "demo",
+    "loader"
+  ],
+  "author": {
+    "name": "zhuchongyu"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "markdown-it": "^7.0.0",
+    "markdown-it-abbr": "^1.0.3",
+    "markdown-it-deflist": "^2.0.1",
+    "markdown-it-footnote": "^3.0.1",
+    "markdown-it-ins": "^2.0.0",
+    "markdown-it-mark": "^2.0.0",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
+    "prismjs": "^1.5.1"
+  },
+  "_id": "xcui-demo-loader@0.1.3",
+  "_shasum": "3b31b1ee92b4b200e08b080730e8c317186fb404",
+  "_from": "xcui-demo-loader@latest",
+  "_npmVersion": "2.15.1",
+  "_nodeVersion": "4.4.3",
+  "_npmUser": {
+    "name": "clancyz",
+    "email": "clancyzhu@vip.qq.com"
+  },
+  "dist": {
+    "shasum": "3b31b1ee92b4b200e08b080730e8c317186fb404",
+    "tarball": "https://registry.npmjs.org/xcui-demo-loader/-/xcui-demo-loader-0.1.3.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "clancyz",
+      "email": "clancyzhu@vip.qq.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/xcui-demo-loader-0.1.3.tgz_1470835092758_0.34849483077414334"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/xcui-demo-loader/-/xcui-demo-loader-0.1.3.tgz",
+  "readme": "ERROR: No README data found!"
+}
