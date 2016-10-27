@@ -1,6 +1,6 @@
 {
   "name": "xcui-demo-loader",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Demo loader for xcui",
   "main": "index.js",
   "scripts": {

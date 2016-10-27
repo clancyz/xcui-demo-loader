@@ -76,8 +76,8 @@ function renderDemo(source) {
         .replace(/<example title=\"([^\"]*)\"[^>]*>([\s\S][\w\W]*?)<\/example>/gmi, function (s, title, code) {
             var esCode = Prism.highlight(code, Prism.languages.markup, 'markup')
                         .replace(/\s+$/gi, '')
-                        .replace(/{/g, '\u007b')
-                        .replace(/}/g, '\u007d')
+                        .replace(/{/g, '<span class="token punctuation">{</span>')
+                        .replace(/}/g, '<span class="token punctuation">}</span>')
             esCode = removeIndent(esCode);
             var str = `<div class="col-md-12 col-xs-12 col-lg-12 xcui-example-container">
                     <h3>${title}</h3>
