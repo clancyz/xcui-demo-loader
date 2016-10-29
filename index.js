@@ -74,6 +74,8 @@ function renderDemo(source) {
                 return expression;
             })
         .replace(/<example title=\"([^\"]*)\"[^>]*>([\s\S][\w\W]*?)<\/example>/gmi, function (s, title, code) {
+            // code = unescape(escape(code).replace(/%5Cn/g, '%0A'));
+            code = code.replace(/\\n/g, '\r\n')
             var esCode = Prism.highlight(code, Prism.languages.markup, 'markup')
                         .replace(/\s+$/gi, '')
                         .replace(/{/g, '<span class="token punctuation">{</span>')
@@ -92,7 +94,7 @@ function renderDemo(source) {
 }
 
 function removeIndent(source) {
-    var indents = source.match(/\\n(\s{2,})/gmi);
+    var indents = source.match(/\n(\s{2,})/gmi);
     if (!indents || !indents[0].length) {
         return source;
     }
@@ -101,7 +103,7 @@ function removeIndent(source) {
     if (!indents[0].length){
         return source;
     }
-    return source.replace(new RegExp(`\\\\n\\s{${indents[0].length-2}}`, 'gm'), '\\n');
+    return source.replace(new RegExp(`\\n\\s{${indents[0].length-2}}`, 'gm'), '\\n');
 }
 
 module.exports = function (md) {
