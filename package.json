@@ -1,55 +1,63 @@
 {
-  "name": "xcui-demo-loader",
-  "version": "0.1.6",
-  "description": "Demo loader for xcui",
-  "main": "index.js",
+  "name": "xcui-demo-loader-test",
+  "version": "1.0.0",
+  "description": "A Vue.js project",
+  "author": "clancyz <clancyzhu@vip.qq.com>",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node build/dev-server.js",
+    "build": "node build/build.js"
   },
-  "keywords": [
-    "vue-loader",
-    "demo",
-    "loader"
-  ],
-  "author": {
-    "name": "zhuchongyu"
-  },
-  "license": "MIT",
   "dependencies": {
-    "markdown-it": "^7.0.0",
-    "markdown-it-abbr": "^1.0.3",
+    "vue": "^2.1.10"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "chalk": "^1.1.3",
+    "connect-history-api-fallback": "^1.3.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.1",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.14.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "file-loader": "^0.10.0",
+    "friendly-errors-webpack-plugin": "^1.1.3",
+    "function-bind": "^1.1.0",
+    "html-webpack-plugin": "^2.28.0",
+    "http-proxy-middleware": "^0.17.3",
+    "markdown-it": "^8.3.0",
+    "markdown-it-abbr": "^1.0.4",
+    "markdown-it-container": "^2.0.0",
     "markdown-it-deflist": "^2.0.1",
     "markdown-it-footnote": "^3.0.1",
     "markdown-it-ins": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
-    "prismjs": "^1.5.1"
+    "opn": "^4.0.2",
+    "optimize-css-assets-webpack-plugin": "^1.3.0",
+    "ora": "^1.1.0",
+    "prismjs": "^1.6.0",
+    "rimraf": "^2.6.0",
+    "semver": "^5.3.0",
+    "url-loader": "^0.5.7",
+    "vue-loader": "^11.0.0",
+    "vue-style-loader": "^2.0.0",
+    "vue-template-compiler": "^2.1.10",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.2.1",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-hot-middleware": "^2.16.1",
+    "webpack-merge": "^2.6.1"
   },
-  "_id": "xcui-demo-loader@0.1.6",
-  "_shasum": "3b31b1ee92b4b200e08b080730e8c317186fb404",
-  "_from": "xcui-demo-loader@latest",
-  "_npmVersion": "2.15.1",
-  "_nodeVersion": "4.4.3",
-  "_npmUser": {
-    "name": "clancyz",
-    "email": "clancyzhu@vip.qq.com"
-  },
-  "dist": {
-    "shasum": "3b31b1ee92b4b200e08b080730e8c317186fb404",
-    "tarball": "https://registry.npmjs.org/xcui-demo-loader/-/xcui-demo-loader-0.1.3.tgz"
-  },
-  "maintainers": [
-    {
-      "name": "clancyz",
-      "email": "clancyzhu@vip.qq.com"
-    }
-  ],
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/xcui-demo-loader-0.1.3.tgz_1470835092758_0.34849483077414334"
-  },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/xcui-demo-loader/-/xcui-demo-loader-0.1.3.tgz",
-  "readme": "ERROR: No README data found!"
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  }
 }
