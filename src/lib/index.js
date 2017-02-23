@@ -29,7 +29,12 @@ function renderMarkdown(source) {
                         language = Prism.languages.css;
                         break;
                 }
+                // replace tpl to template for highlight
+                str = str.replace(/(<\s*\/?\s*)tpl(\s*([^>]*)?\s*>)/gm, '$1template$2');
                 var code = Prism.highlight(str, language);
+                // replace {{}} to avoid vue data binding
+                debugger;
+                code = code.replace(/([{}])/g, '<span class="token punctuation">$1</span>');
                 return '<pre>' + code + '</pre>';
             }
         })
@@ -52,10 +57,10 @@ function renderMarkdown(source) {
                     var infoCode = (m && m.length > 1) ? m[1] : '';
                     infoCode = mdIt.render(infoCode);
                     var sourceCode = tokens[idx + 1].content;
-                    var highlightCode = mdIt.render(sourceCode);
+                    // prevent vue loader recognize </template> as an end tag, so use tpl instead
                     var htmlCode = sourceCode.replace(/<(script|style)[^>]*?>(?:.|\n)*?<\/\s*\1\s*>/gm, function () {
                         return '';
-                    }).replace(/<template[^>]*?>([\s\S][\w\W]*?)<\/template>/gm, function(match, pureCode){
+                    }).replace(/<tpl[^>]*?>([\s\S][\w\W]*?)<\/tpl>/gm, function(match, pureCode){
                         return pureCode;
                     });
 

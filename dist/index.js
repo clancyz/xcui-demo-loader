@@ -8,12 +8,11 @@ var deflist = require('markdown-it-deflist');
 var abbr = require('markdown-it-abbr');
 var insert = require('markdown-it-ins');
 var mark = require('markdown-it-mark');
+var container = require('markdown-it-container');
 var Prism = require('prismjs');
 
-var md = new markdownIt();
-
 function renderMarkdown(source) {
-    md = new markdownIt({
+    var md = new markdownIt({
             highlight: function (str, lang) {
                 var language = Prism.languages.javascript;
                 switch (lang) {
@@ -30,7 +29,12 @@ function renderMarkdown(source) {
                         language = Prism.languages.css;
                         break;
                 }
+                // replace tpl to template for highlight
+                str = str.replace(/(<\s*\/?\s*)tpl(\s*([^>]*)?\s*>)/gm, '$1template$2');
                 var code = Prism.highlight(str, language);
+                // replace {{}} to avoid vue data binding
+                debugger;
+                code = code.replace(/([{}])/g, '<span class="token punctuation">$1</span>');
                 return '<pre>' + code + '</pre>';
             }
         })
@@ -40,7 +44,35 @@ function renderMarkdown(source) {
         .use(deflist)
         .use(abbr)
         .use(insert)
-        .use(mark);
+        .use(mark)
+        .use(container, 'demo', {
+            validate: function (params) {
+                return params.trim().match(/^demo\s*(.*)$/);
+            },
+            render: function (tokens, idx) {
+                var m = tokens[idx].info.trim().match(/^demo\s*(.*)$/);
+                var ret = '';
+                if (tokens[idx].nesting === 1) {
+                    var mdIt = new markdownIt();
+                    var infoCode = (m && m.length > 1) ? m[1] : '';
+                    infoCode = mdIt.render(infoCode);
+                    var sourceCode = tokens[idx + 1].content;
+                    // prevent vue loader recognize </template> as an end tag, so use tpl instead
+                    var htmlCode = sourceCode.replace(/<(script|style)[^>]*?>(?:.|\n)*?<\/\s*\1\s*>/gm, function () {
+                        return '';
+                    }).replace(/<tpl[^>]*?>([\s\S][\w\W]*?)<\/tpl>/gm, function(match, pureCode){
+                        return pureCode;
+                    });
+
+                    return `<xcui-demo>
+                        <div slot="source">${htmlCode}</div>
+                        <span slot="info-title">说明</span>
+                        <div slot="info">${infoCode}</div>
+                        <div slot="highlight">`;
+                }
+                return '</div></xcui-demo>\n';
+            }
+        });
     md.set({
         html: true,
         xhtmlOut: true,
@@ -51,64 +83,14 @@ function renderMarkdown(source) {
         quotes: true
     });
     md.renderer.rules.table_open = function () {
-        return `<table class="table">\n`;
+        return `<table class="markdown-table">\n`;
     };
     var outHtml = md.render(source);
     return '<div>' + outHtml + '</div>';
 }
 
-function renderDemo(source) {
-    var outHtml = String(source)
-        .replace(/\r\n?|[\n\u2028\u2029]/g, '\n')
-        .replace(/^\uFEFF/, '')
-        .replace(/[\r\n]+/g, '\n')
-        .replace(/^\n+|\s+$/mg, '')
-        .replace('<demo>', '<div class="xcui-demo-container col-md-12 col-xs-12 col-lg-12">')
-        .replace('</demo>', '</div>')
-        .replace(
-            /^(.*#\{[^}]*\}.*|[ \t]*[&=:|].*|[ \w\t_$]*([^&\^?|\n\w\/'"{}\[\]+\-():;, \t=\.$_]|:\/\/).*$|(?!\s*(else|do|try|finally|void|typeof\s[\w$_]*)\s*$)[^'":;{}()\[\],\n|=&\/^?]+$)\s?/mg,
-            function (expression) {
-                expression = expression
-                    .replace(/\n/g, '\\n')
-                    .replace(/^'',|,''$/g, '');
-                return expression;
-            })
-        .replace(/<example title=\"([^\"]*)\"[^>]*>([\s\S][\w\W]*?)<\/example>/gmi, function (s, title, code) {
-            // code = unescape(escape(code).replace(/%5Cn/g, '%0A'));
-            code = code.replace(/\\n/g, '\r\n')
-            var esCode = Prism.highlight(code, Prism.languages.markup, 'markup')
-                        .replace(/\s+$/gi, '')
-                        .replace(/{/g, '<span class="token punctuation">{</span>')
-                        .replace(/}/g, '<span class="token punctuation">}</span>')
-            esCode = removeIndent(esCode);
-            var str = `<div class="col-md-12 col-xs-12 col-lg-12 xcui-example-container">
-                    <h3>${title}</h3>
-                    <div class="xcui-demo-wrap col-xs-12 col-md-6 col-lg-6">${code}</div>
-                    <div class="xcui-code-wrap col-xs-12 col-md-6 col-lg-6"><pre>${esCode}</pre></div>
-                    </div>`;
-            return str;
-        })
-        .replace(/\\n/g, '\n');
-
-    return outHtml;
-}
-
-function removeIndent(source) {
-    var indents = source.match(/\n(\s{2,})/gmi);
-    if (!indents || !indents[0].length) {
-        return source;
-    }
-    indents.sort(function (a, b) {
-        return a.length - b.length; });
-    if (!indents[0].length){
-        return source;
-    }
-    return source.replace(new RegExp(`\\n\\s{${indents[0].length-2}}`, 'gm'), '\\n');
-}
-
 module.exports = function (md) {
     var html = '';
     html = renderMarkdown(md);
-    html = renderDemo(html);
     return html;
 }
