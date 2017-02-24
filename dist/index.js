@@ -34,7 +34,8 @@ function renderMarkdown(source) {
                 var code = Prism.highlight(str, language);
                 // replace {{}} to avoid vue data binding
                 debugger;
-                code = code.replace(/([{}])/g, '<span class="token punctuation">$1</span>');
+                code = code.replace(/([{}])/g, '<span class="token punctuation">$1</span>')
+                        .replace(/> </g, '>nbsp;<');
                 return '<pre>' + code + '</pre>';
             }
         })
