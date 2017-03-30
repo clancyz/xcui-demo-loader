@@ -35,7 +35,7 @@ function renderMarkdown(source) {
                 // replace {{}} to avoid vue data binding
                 debugger;
                 code = code.replace(/([{}])/g, '<span class="token punctuation">$1</span>')
-                        .replace(/> </g, '>nbsp;<');
+                        .replace(/> </g, '>&nbsp;<');
                 return '<pre>' + code + '</pre>';
             }
         })
