@@ -16,3 +16,4 @@ node_modules
 coverage
 examples
 .idea
+.DS_Store
