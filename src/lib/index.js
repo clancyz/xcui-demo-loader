@@ -10,6 +10,7 @@ var insert = require('markdown-it-ins');
 var mark = require('markdown-it-mark');
 var container = require('markdown-it-container');
 var Prism = require('prismjs');
+require('prismjs/components/prism-bash');
 
 function renderMarkdown(source) {
     var md = new markdownIt({
@@ -27,6 +28,9 @@ function renderMarkdown(source) {
                         break;
                     case 'css':
                         language = Prism.languages.css;
+                        break;
+                    case 'bash':
+                        language = Prism.languages.bash;
                         break;
                 }
                 // replace tpl to template for highlight
